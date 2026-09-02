@@ -1,0 +1,15 @@
+{{- /* Skrypty custom warstwy. Kolejność ma znaczenie: ndm-store.js pierwszy,
+       bo ndm-article.js i ndm-saved.js z niego korzystają. */ -}}
+{{- $store := resources.Get "js/ndm-store.js" -}}
+{{- $toc := resources.Get "js/ndm-toc.js" -}}
+{{- $article := resources.Get "js/ndm-article.js" -}}
+{{- $lightbox := resources.Get "js/ndm-lightbox.js" -}}
+{{- $bundle := slice $store $toc $article $lightbox | resources.Concat "js/ndm.js" | minify | fingerprint -}}
+{{- /* NIE DODAWAJ defer ANI async do poniższego tagu.
+       saved.html ładuje ndm-saved.js z `defer`, a jego tag stoi w <main> — czyli
+       WCZEŚNIEJ w dokumencie niż ten. Działa to tylko dlatego, że skrypt bez defer
+       wykonuje się w trakcie parsowania, a deferred dopiero po jego zakończeniu:
+       NdmStore zdąży powstać. Gdy dodasz tu defer, oba staną się deferred i wykonają
+       się w kolejności dokumentu — ndm-saved.js pierwszy, czyli `NdmStore is not
+       defined`. Awaria będzie cicha: build przejdzie, złapie ją dopiero klikanie. */ -}}
+<script src="{{ $bundle.RelPermalink }}" integrity="{{ $bundle.Data.Integrity }}"></script>

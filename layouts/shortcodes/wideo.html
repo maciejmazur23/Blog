@@ -1,0 +1,35 @@
+{{- /* Nagranie wideo w treści posta.
+       Użycie: {{< wideo src="images/plik.mp4" podpis="podpis pod nagraniem" >}}
+       Parametry: src (ścieżka względem assets/, wymagany)
+                  podpis (opcjonalny, renderowany jako figcaption)
+                  szerokosc (opcjonalna maks. szerokość w px, domyślnie 800 — szerokość
+                  kolumny treści; nagrania pionowe z telefonu warto zwęzić do ~360)
+                  plakat (opcjonalna klatka podglądu, ścieżka jak w src)
+                  auto ("true" — pętla bez dźwięku i bez kontrolek, jak GIF)
+       Wideo nie jest przetwarzane przez Hugo, tylko kopiowane 1:1 — preload="metadata"
+       sprawia, że przeglądarka pobiera na start sam nagłówek, a nie cały plik.
+       Gdy zasobu nie ma w assets/, linkujemy wprost do ścieżki (spójnie z ndm-image.html). */ -}}
+{{- $src := .Get "src" -}}
+{{- if not $src }}{{ errorf "wideo: brak parametru src (%s)" .Position }}{{ end -}}
+{{- $podpis := .Get "podpis" -}}
+{{- $w := int (.Get "szerokosc" | default 800) -}}
+{{- $auto := eq (lower (.Get "auto" | default "false")) "true" -}}
+{{- $url := $src | relURL -}}
+{{- with resources.Get $src }}{{ $url = .RelPermalink }}{{ end -}}
+{{- $typ := printf "video/%s" (strings.TrimPrefix "." (path.Ext $src)) -}}
+{{- /* Plakat przepuszczamy przez ten sam resize co zdjęcia — 2× szerokość pod ekrany HiDPI. */ -}}
+{{- $plakat := "" -}}
+{{- $plakatSrc := .Get "plakat" -}}
+{{- if $plakatSrc -}}
+  {{- $plakat = $plakatSrc | relURL -}}
+  {{- with resources.Get $plakatSrc }}{{ $plakat = (.Resize (printf "%dx webp q65" (mul $w 2))).RelPermalink }}{{ end -}}
+{{- end -}}
+<figure class="ndm-wideo" style="--w:{{ $w }}px">
+  <video preload="metadata" playsinline
+    {{- with $plakat }} poster="{{ . }}"{{ end }}
+    {{- if $auto }} autoplay loop muted{{ else }} controls{{ end }}>
+    <source src="{{ $url }}" type="{{ $typ }}">
+    <p>Twoja przeglądarka nie odtworzy tego nagrania. <a href="{{ $url }}">Pobierz plik</a>.</p>
+  </video>
+  {{- with $podpis }}<figcaption class="ndm-figure__cap">{{ . | markdownify }}</figcaption>{{ end -}}
+</figure>

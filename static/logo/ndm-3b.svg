@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Na Dłuższą Metę">
+  <!-- Rosnące słupki w bloku (Sport / Zdrowie / Inwestowanie). Blok stały ciemny, by kolory słupków zawsze kontrastowały. -->
+  <rect x="1" y="1" width="30" height="30" rx="7" fill="#14130F"/>
+  <rect x="7" y="18.5" width="4.5" height="7" rx="1.2" fill="#F25C54"/>
+  <rect x="13.75" y="14" width="4.5" height="11.5" rx="1.2" fill="#0CA678"/>
+  <rect x="20.5" y="9" width="4.5" height="16.5" rx="1.2" fill="#3B5BDB"/>
+</svg>

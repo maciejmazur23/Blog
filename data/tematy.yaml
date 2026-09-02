@@ -1,0 +1,30 @@
+# Jedyne źródło prawdy o tematach bloga.
+# Konsumenci: ndm-topic.html, post-card.html, ndm-featured.html, single.html,
+# category-header.html, header/basic.html, extend-head.html, about.html.
+# Kolejność ma znaczenie: pierwszy temat jest fallbackiem w ndm-topic.html.
+- slug: "sport"
+  nazwa: "Sport"
+  symbol: "S"
+  litera: "S"
+  opis: "Opisy dotychczasowych wyzwań."
+  kolorLight: "#F25C54"
+  kolorDark: "#FF6F61"
+  zmiennaCSS: "sport"
+
+- slug: "zdrowie"
+  nazwa: "Zdrowie"
+  symbol: "Z"
+  litera: "Z"
+  opis: "Zdrowe nawyki i ciekawe badania."
+  kolorLight: "#0CA678"
+  kolorDark: "#20C997"
+  zmiennaCSS: "health"
+
+- slug: "inwestowanie"
+  nazwa: "Inwestycje"
+  symbol: "↑"
+  litera: "I"
+  opis: "Podstawy które warto znać."
+  kolorLight: "#F2C200"
+  kolorDark: "#F2C200"
+  zmiennaCSS: "invest"

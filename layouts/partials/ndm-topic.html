@@ -1,0 +1,11 @@
+{{- /* Zwraca dict tematu z data/tematy.yaml dla bieżącej strony.
+       Fallback (bez zmian względem poprzedniej wersji):
+       .Section → .Title | urlize → pierwszy temat z listy. */ -}}
+{{- $tematy := site.Data.tematy -}}
+{{- $wg := dict -}}
+{{- range $tematy -}}{{- $wg = merge $wg (dict .slug .) -}}{{- end -}}
+
+{{- $t := index $wg .Section -}}
+{{- if not $t -}}{{- $t = index $wg (.Title | urlize) -}}{{- end -}}
+{{- if not $t -}}{{- $t = index $tematy 0 -}}{{- end -}}
+{{- return $t -}}

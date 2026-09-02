@@ -1,0 +1,12 @@
+{{ define "main" }}
+  {{ partial "category-header.html" . }}
+  {{- $paginator := .Paginate (where .RegularPagesRecursive "Section" "in" site.Params.mainSections) -}}
+  <div class="ndm-list">
+    <div class="ndm-grid">
+      {{ range $paginator.Pages }}
+        {{ partial "post-card.html" . }}
+      {{ end }}
+    </div>
+    {{ partial "ndm-pager.html" $paginator }}
+  </div>
+{{ end }}

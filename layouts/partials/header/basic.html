@@ -1,0 +1,39 @@
+{{- $slugi := slice -}}
+{{- range site.Data.tematy -}}{{- $slugi = $slugi | append .slug -}}{{- end -}}
+<header class="ndm-header">
+  {{- $logo := resources.Get "logo/nowe-logo.png" -}}
+  {{- $logo1x := $logo.Resize "44x webp q90" -}}
+  {{- $logo2x := $logo.Resize "88x webp q90" -}}
+  <a href="{{ "" | relLangURL }}" class="ndm-logo">
+    <img class="ndm-logo__mark" src="{{ $logo1x.RelPermalink }}"
+         srcset="{{ $logo1x.RelPermalink }} 1x, {{ $logo2x.RelPermalink }} 2x"
+         width="44" height="44" loading="eager" decoding="async"
+         alt="{{ site.Params.brandName | default site.Title }}">
+    <span class="ndm-logo__name">{{ site.Params.brandName | default site.Title }}</span>
+  </a>
+  <nav class="ndm-nav">
+    {{ range site.Menus.main }}
+      {{ $jestTematem := in $slugi .Identifier }}
+      <a href="{{ .URL }}" class="ndm-nav__item{{ if $jestTematem }} has-dot{{ end }}">
+        {{ if $jestTematem }}<span class="ndm-nav__dot cat-{{ .Identifier }}"></span>{{ end }}
+        {{ .Name }}
+      </a>
+    {{ end }}
+  </nav>
+  <div class="ndm-header__right">
+    {{ if site.Params.enableSearch }}
+      <button id="search-button" class="ndm-search" aria-label="Szukaj">Szukaj</button>
+    {{ end }}
+    <button id="appearance-switcher" class="ndm-toggle" aria-label="Przełącz tryb" type="button">
+      <span class="ndm-toggle__knob">
+        <svg class="ndm-toggle__icon ndm-toggle__icon--sun" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg class="ndm-toggle__icon ndm-toggle__icon--moon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </span>
+    </button>
+  </div>
+</header>

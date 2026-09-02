@@ -1,0 +1,19 @@
+locale = "pl"
+label = "Polski"
+weight = 1
+title = "Na Dłuższą Metę"
+
+[params]
+  displayName = "PL"
+  isoCode = "pl"
+  rtl = false
+
+[params.author]
+  name = "Maciek"
+  headline = "Zdrowie ciała i portfela"
+  bio = "O sporcie, zdrowiu i inwestowaniu — czyli o budowaniu kapitału: tego w mięśniach i tego na koncie."
+  links = [
+    { linkedin = "https://www.linkedin.com/in/maciek-mazur" },
+    { instagram = "https://www.instagram.com/bestia_z_sierakowa/" },
+    { email = "maciek.m2317@vp.pl" },
+  ]

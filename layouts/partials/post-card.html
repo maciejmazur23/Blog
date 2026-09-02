@@ -1,0 +1,21 @@
+{{- $t := partial "ndm-topic.html" . -}}
+{{- $img := "" -}}
+{{- with .Params.featureimage -}}{{ $img = . }}{{- end -}}
+<article class="ndm-card cat-{{ $t.slug }}">
+  <a href="{{ .RelPermalink }}" class="ndm-card__media">
+    {{ with $img }}
+      {{ partial "ndm-image.html" (dict "src" . "szerokosc" 400 "class" "ndm-card__img" "alt" "") }}
+    {{ end }}
+    <span class="ndm-tag">
+      <span class="ndm-tag__dot"></span>
+      <span class="ndm-tag__label">{{ $t.nazwa }}</span>
+    </span>
+  </a>
+  <div class="ndm-card__body">
+    <h4 class="ndm-card__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
+    <p class="ndm-card__excerpt">{{ .Summary | plainify | truncate 140 }}</p>
+    <div class="ndm-card__meta">
+      <span>{{ .Date.Format "2 Jan 2006" }}</span><span>·</span><span>{{ .ReadingTime }} min</span>
+    </div>
+  </div>
+</article>

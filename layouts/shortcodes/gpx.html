@@ -1,0 +1,31 @@
+{{- /* Plik GPX z trasą do pobrania.
+       Użycie: {{< gpx src="gpx/plik.gpx" nazwa="Nasza trasa NC500" podpis="opcjonalny opis" >}}
+       Parametry: src (ścieżka względem assets/, wymagany)
+                  nazwa (opcjonalna etykieta, domyślnie nazwa pliku)
+                  podpis (opcjonalny, renderowany pod nazwą)
+       Plik nie jest przetwarzany przez Hugo, tylko kopiowany 1:1 — samo odwołanie
+       do .RelPermalink publikuje go w public/. Rozmiar liczymy z zawartości,
+       żeby czytelnik wiedział, co pobiera. */ -}}
+{{- $src := .Get "src" -}}
+{{- if not $src }}{{ errorf "gpx: brak parametru src (%s)" .Position }}{{ end -}}
+{{- $res := resources.Get $src -}}
+{{- if not $res }}{{ errorf "gpx: nie znaleziono pliku %q w assets/ (%s)" $src .Position }}{{ end -}}
+{{- $plik := path.Base $src -}}
+{{- $nazwa := .Get "nazwa" | default $plik -}}
+{{- $podpis := .Get "podpis" -}}
+{{- $bajty := len $res.Content -}}
+{{- $rozmiar := printf "%.0f KB" (div (float $bajty) 1024.0) -}}
+{{- if ge $bajty 1048576 }}{{ $rozmiar = printf "%.1f MB" (div (float $bajty) 1048576.0) }}{{ end -}}
+<a class="ndm-gpx" href="{{ $res.RelPermalink }}" download="{{ $plik }}">
+  <span class="ndm-gpx__icon" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/>
+    </svg>
+  </span>
+  <span class="ndm-gpx__text">
+    <span class="ndm-gpx__name">{{ $nazwa }}</span>
+    <span class="ndm-gpx__meta">GPX · {{ $rozmiar }}{{ with $podpis }} · {{ . }}{{ end }}</span>
+  </span>
+  <span class="ndm-gpx__cta">Pobierz</span>
+</a>

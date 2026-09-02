@@ -1,0 +1,50 @@
+{{- /* Renderuje <img> z srcset w WebP.
+       Wejście: dict "src" (ścieżka względem assets/, np. "images/cukier.jpg")
+                     "szerokosc" (docelowa szerokość w px, int)
+                     "class" "alt" "loading" (opcjonalne)
+                     "jakosc" / "jakosc2x" (jakość WebP dla 1x / 2x, domyślnie 65 / 45)
+                     "filtr" (filtr skalowania, np. "Lanczos"; domyślnie Box z configu)
+                     "szerokosci" + "sizes" (opcjonalne, działają tylko razem):
+                        tryb responsywny — srcset z deskryptorami "w" zamiast "1x/2x".
+                        Dla obrazków, których szerokość renderowania zmienia się
+                        z viewportem; deskryptory 1x/2x patrzą wyłącznie na DPR
+                        i takiego przypadku nie obsłużą. Warianty szersze niż
+                        2 × "szerokosc" dostają "jakosc2x" — dopiero przy 3x
+                        niższa jakość jest niewidoczna; wariant 2x trafia na
+                        retinę piksel w piksel i musi zostać ostry.
+       Fallback: gdy zasobu nie ma, renderuje surowy <img> bez srcset,
+       ze ścieżką przez relURL. Brakujący obrazek nie może wywalić builda. */ -}}
+{{- $src := .src -}}
+{{- $w := .szerokosc | default 800 -}}
+{{- $class := .class | default "" -}}
+{{- $alt := .alt | default "" -}}
+{{- $loading := .loading | default "lazy" -}}
+{{- $q := .jakosc | default 65 -}}
+{{- $q2 := .jakosc2x | default 45 -}}
+{{- $filtr := .filtr | default "" -}}
+{{- $res := resources.Get $src -}}
+{{- if $res -}}
+  {{- $x1 := $res.Resize (printf "%dx webp q%d %s" $w $q $filtr | strings.TrimSpace) -}}
+  {{- if and .szerokosci .sizes -}}
+    {{- $prog := mul $w 2 -}}
+    {{- $srcset := slice -}}
+    {{- range .szerokosci -}}
+      {{- $jak := cond (gt . $prog) $q2 $q -}}
+      {{- $v := $res.Resize (printf "%dx webp q%d %s" . $jak $filtr | strings.TrimSpace) -}}
+      {{- $srcset = $srcset | append (printf "%s %dw" $v.RelPermalink $v.Width) -}}
+    {{- end -}}
+    <img src="{{ $x1.RelPermalink }}"
+         srcset="{{ delimit $srcset ", " }}"
+         sizes="{{ .sizes }}"
+         width="{{ $x1.Width }}" height="{{ $x1.Height }}"
+         alt="{{ $alt }}" loading="{{ $loading }}"{{ with $class }} class="{{ . }}"{{ end }}>
+  {{- else -}}
+    {{- $x2 := $res.Resize (printf "%dx webp q%d %s" (mul $w 2) $q2 $filtr | strings.TrimSpace) -}}
+    <img src="{{ $x1.RelPermalink }}"
+         srcset="{{ $x1.RelPermalink }} 1x, {{ $x2.RelPermalink }} 2x"
+         width="{{ $x1.Width }}" height="{{ $x1.Height }}"
+         alt="{{ $alt }}" loading="{{ $loading }}"{{ with $class }} class="{{ . }}"{{ end }}>
+  {{- end -}}
+{{- else -}}
+  <img src="{{ $src | relURL }}" alt="{{ $alt }}" loading="{{ $loading }}"{{ with $class }} class="{{ . }}"{{ end }}>
+{{- end -}}

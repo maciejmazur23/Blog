@@ -1,0 +1,20 @@
+{{/* Własny favicon z logo bloga — nadpisuje domyślne ikony Blowfish.
+     Generator: scripts/make-favicon-logo.py (źródło: assets/logo/nowe-logo.png).
+
+     Grafika jest zależna od rozmiaru — przy 16-20 px pełny znak (okrąg + NDM + droga)
+     zlewa się w plamę, więc małe ikony dostają sam monogram „NDM”:
+       favicon.svg          → monogram; Chrome preferuje SVG i to ono ląduje na pasku
+                              kart, także na ekranach 2x (gdzie wybór po rozmiarze
+                              PNG-a podstawiłby wersję zbyt gęstą)
+       favicon.ico          → 3 osobne klatki: 16 monogram, 32/48 pełny znak
+       PNG 48/192           → pełny znak; Google chce wielokrotności 48 px
+       apple-touch-icon     → pełny znak, 180 px
+
+     Pliki: static/favicon*, static/apple-touch-icon.png */}}
+<link rel="icon" type="image/svg+xml" href="{{ "favicon.svg" | relURL }}">
+<link rel="icon" type="image/png" sizes="192x192" href="{{ "favicon-192x192.png" | relURL }}">
+<link rel="icon" type="image/png" sizes="48x48" href="{{ "favicon-48x48.png" | relURL }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png" | relURL }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon-16x16.png" | relURL }}">
+<link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="any">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">

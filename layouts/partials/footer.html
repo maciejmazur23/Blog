@@ -1,0 +1,21 @@
+<footer id="site-footer" class="ndm-footer">
+  {{- $logo := resources.Get "logo/nowe-logo.png" -}}
+  {{- $logo1x := $logo.Resize "36x webp q90" -}}
+  {{- $logo2x := $logo.Resize "72x webp q90" -}}
+  <a href="{{ "" | relLangURL }}" class="ndm-footer__brand">
+    <img class="ndm-footer__mark" src="{{ $logo1x.RelPermalink }}"
+         srcset="{{ $logo1x.RelPermalink }} 1x, {{ $logo2x.RelPermalink }} 2x"
+         width="36" height="36" loading="lazy" decoding="async" alt="" aria-hidden="true">
+    <span>{{ site.Params.brandName | default site.Title }}</span>
+  </a>
+  <div class="ndm-footer__links">
+    {{ range site.Params.socials }}
+      <a href="{{ .url }}"{{ if ne .url "#" }}{{ if not (hasPrefix .url "/") }} target="_blank" rel="me noopener"{{ end }}{{ end }}>{{ .name }}</a>
+    {{ end }}
+  </div>
+  <span class="ndm-footer__copy">© {{ now.Year }}</span>
+  {{/* Hook extend-footer (Blowfish ładuje go wewnątrz footer.html — przy nadpisaniu musimy go zachować, inaczej zniknie scrollspy z Task 7) */}}
+  {{ if templates.Exists "partials/extend-footer.html" }}
+    {{ partialCached "extend-footer.html" . }}
+  {{ end }}
+</footer>

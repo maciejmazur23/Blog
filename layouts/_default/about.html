@@ -1,0 +1,46 @@
+{{ define "main" }}
+  <div class="ndm-about">
+    <div class="ndm-about__left">
+      <div class="ndm-about__portrait">
+        {{ with .Params.portrait }}
+          {{/* Portret jest największym obrazkiem strony i jedynym elementem nad linią
+               załamania — stąd wyższa jakość, Lanczos i deskryptory "w": kolumna ma
+               sztywne 420px na desktopie, ale poniżej 880px rozciąga się na całą
+               szerokość ekranu (patrz .ndm-about w custom.css). */}}
+          {{ partial "ndm-image.html" (dict
+              "src" . "alt" $.Params.heading
+              "szerokosc" 420
+              "szerokosci" (slice 420 630 840 1260)
+              "sizes" "(max-width: 880px) calc(100vw - 36px), 420px"
+              "jakosc" 82 "jakosc2x" 68
+              "filtr" "Lanczos"
+              "loading" "eager") }}
+        {{ end }}
+      </div>
+      <div class="ndm-about__stats">
+        {{ range .Params.stats }}
+          <div class="ndm-stat"><span class="ndm-stat__num">{{ .num }}</span><span class="ndm-stat__cap">{{ .cap }}</span></div>
+        {{ end }}
+      </div>
+    </div>
+    <div class="ndm-about__right">
+      <span class="ndm-about__eyebrow">{{ .Params.eyebrow | default "O mnie" }}</span>
+      <h1 class="ndm-about__title">{{ .Params.heading | default .Title }}</h1>
+      <div class="ndm-about__text">{{ .Content }}</div>
+      <div class="ndm-about__topics">
+        {{ range site.Data.tematy }}
+          <div class="ndm-topic-card">
+            <div class="ndm-topic-card__icon cat-{{ .slug }}">{{ .litera }}</div>
+            <span class="ndm-topic-card__name">{{ .nazwa }}</span>
+            <span class="ndm-topic-card__desc">{{ .opis }}</span>
+          </div>
+        {{ end }}
+      </div>
+      <div class="ndm-about__socials">
+        {{ range site.Params.socials }}
+          <a href="{{ .url }}" class="ndm-pill"{{ if ne .url "#" }}{{ if not (hasPrefix .url "/") }} target="_blank" rel="me noopener"{{ end }}{{ end }}>{{ .name }}</a>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+{{ end }}

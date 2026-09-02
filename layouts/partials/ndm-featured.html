@@ -1,0 +1,22 @@
+{{- /* Główny (wyróżniony) wpis na stronie głównej — hero najnowszego wpisu.
+       Cała karta jest jednym linkiem (spójne z .ndm-featured:
+       color:inherit; text-decoration:none). Pola czytane tak jak w post-card.html. */ -}}
+{{- $t := partial "ndm-topic.html" . -}}
+{{- $img := "" -}}{{- with .Params.featureimage -}}{{ $img = . }}{{- end -}}
+<a href="{{ .RelPermalink }}" class="ndm-featured cat-{{ $t.slug }}">
+  <span class="ndm-featured__media">
+    {{ with $img }}{{ partial "ndm-image.html" (dict "src" . "szerokosc" 800 "class" "ndm-featured__img" "alt" "") }}{{ end }}
+    <span class="ndm-tag">
+      <span class="ndm-tag__dot"></span>
+      <span class="ndm-tag__label">{{ $t.nazwa }}</span>
+    </span>
+  </span>
+  <div class="ndm-featured__body">
+    <h2 class="ndm-featured__title">{{ .Title }}</h2>
+    <p class="ndm-featured__lead">{{ .Summary | plainify | truncate 180 }}</p>
+    <div class="ndm-featured__meta">
+      <span>{{ .Date.Format "2 Jan 2006" }}</span><span>·</span><span>{{ .ReadingTime }} min</span>
+    </div>
+    <span class="ndm-readmore">Czytaj wpis <span class="ndm-readmore__arrow">→</span></span>
+  </div>
+</a>

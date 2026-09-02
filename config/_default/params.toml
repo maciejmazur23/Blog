@@ -1,0 +1,30 @@
+colorScheme = "blowfish"
+brandName = "Na Dłuższą Metę"   # nazwa marki w headerze/footerze (osobno od title SEO)
+authorImage = "images/me.jpg"   # zdjęcie autora: meta wpisu, box autora, strona O mnie
+defaultAppearance = "light"
+autoSwitchAppearance = true
+
+enableSearch = true
+enableCodeCopy = true
+
+# Feature images są teraz lokalne w /images/ — hotlinking wyłączony.
+# hotlinkFeatureImage = true
+
+# Sekcje, z których budowane są listy „najnowszych" na stronie głównej.
+mainSections = ["sport", "zdrowie", "inwestowanie"]
+
+[[socials]]
+  name = "Strava"
+  url = "https://strava.app.link/NJPnZ4sVw4b"
+[[socials]]
+  name = "Instagram"
+  url = "https://www.instagram.com/bestia_z_sierakowa/"
+[[socials]]
+  name = "LinkedIn"
+  url = "https://www.linkedin.com/in/maciej-mazur-90064b2b4"
+[[socials]]
+  name = "RSS"
+  url = "/index.xml"
+
+[header]
+  layout = "basic"

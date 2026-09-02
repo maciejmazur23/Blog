@@ -1,0 +1,29 @@
+[[main]]
+  name = "Sport"
+  pageRef = "sport"
+  identifier = "sport"
+  weight = 10
+
+[[main]]
+  name = "Zdrowie"
+  pageRef = "zdrowie"
+  identifier = "zdrowie"
+  weight = 20
+
+[[main]]
+  name = "Inwestycje"
+  pageRef = "inwestowanie"
+  identifier = "inwestowanie"
+  weight = 30
+
+[[main]]
+  name = "O mnie"
+  pageRef = "about"
+  identifier = "about"
+  weight = 40
+
+[[main]]
+  name = "Zapisane"
+  pageRef = "zapisane"
+  identifier = "zapisane"
+  weight = 50

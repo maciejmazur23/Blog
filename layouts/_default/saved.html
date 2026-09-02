@@ -1,0 +1,17 @@
+{{ define "main" }}
+  <div class="ndm-home">
+    <div class="ndm-section-head">
+      <h1 class="ndm-section-head__title">{{ .Title }}</h1>
+      <span id="ndm-saved-count" class="ndm-saved__count" hidden></span>
+    </div>
+    {{ with .Content }}<div class="ndm-prose ndm-saved__intro">{{ . }}</div>{{ end }}
+
+    <div id="ndm-saved-grid" class="ndm-grid"
+         data-empty="Nie masz jeszcze zapisanych wpisów. Otwórz dowolny wpis i kliknij „Zapisz”, aby trzymać go tutaj."></div>
+  </div>
+
+  {{/* NdmStore jest już załadowany przez extend-footer.html (bundel w stopce).
+       Ten skrypt musi wykonać się PO nim, dlatego defer. */}}
+  {{- $saved := resources.Get "js/ndm-saved.js" | minify | fingerprint -}}
+  <script src="{{ $saved.RelPermalink }}" integrity="{{ $saved.Data.Integrity }}" defer></script>
+{{ end }}

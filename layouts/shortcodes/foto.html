@@ -1,0 +1,28 @@
+{{- /* Zdjęcie w treści posta.
+       Użycie: {{< foto src="images/plik.jpg" alt="opis" podpis="podpis pod zdjęciem" >}}
+       Parametry: src (ścieżka względem assets/, wymagany)
+                  alt (opis dla czytników ekranu)
+                  podpis (opcjonalny, renderowany jako figcaption)
+                  szerokosc (opcjonalna, domyślnie 800 — szerokość kolumny treści,
+                  a 480 wewnątrz shortcode'u galeria, gdzie zdjęcie zajmuje ułamek szerokości)
+       Miniatura jest opakowana w link do wersji ~1600px. Bez JS link po prostu
+       otwiera duże zdjęcie; ndm-lightbox.js przechwytuje klik i pokazuje podgląd. */ -}}
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $podpis := .Get "podpis" -}}
+{{- $domyslnaSzerokosc := 800 -}}
+{{- if and .Parent (eq .Parent.Name "galeria") }}{{ $domyslnaSzerokosc = 480 }}{{ end -}}
+{{- $w := int (.Get "szerokosc" | default $domyslnaSzerokosc) -}}
+{{- /* Wersja do podglądu: 1600px, ale nigdy nie powiększamy ponad oryginał.
+       Gdy zasobu nie ma w assets/, linkujemy wprost do ścieżki (spójnie z ndm-image.html). */ -}}
+{{- $res := resources.Get $src -}}
+{{- $pelny := $src | relURL -}}
+{{- if $res -}}
+  {{- $wPelny := 1600 -}}
+  {{- if lt $res.Width $wPelny }}{{ $wPelny = $res.Width }}{{ end -}}
+  {{- $pelny = ($res.Resize (printf "%dx webp q75" $wPelny)).RelPermalink -}}
+{{- end -}}
+<figure class="ndm-figure">
+  <a class="ndm-figure__link" href="{{ $pelny }}">{{ partial "ndm-image.html" (dict "src" $src "szerokosc" $w "alt" $alt) }}</a>
+  {{- with $podpis }}<figcaption class="ndm-figure__cap">{{ . | markdownify }}</figcaption>{{ end -}}
+</figure>

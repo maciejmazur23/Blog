@@ -1,0 +1,78 @@
+{{ define "main" }}
+  {{- $t := partial "ndm-topic.html" . -}}
+  {{- $author := site.Params.Author -}}
+  {{- /* URL miniatury dla „Zapisz”. Musi być gotowym adresem, a nie ścieżką z front
+         mattera: karta na /zapisane/ renderuje się w JS, więc surowe "images/x.jpg"
+         rozwiązałoby się względem /zapisane/ i wskazywało nieistniejący plik —
+         w assets/ leżą oryginały, serwowane są przetworzone _hu_<hash>.webp.
+         Te same parametry co post-card.html (szerokosc 400), więc Hugo nie generuje
+         dodatkowego pliku, tylko trafia w ten sam zasób. */ -}}
+  {{- $imgZapis := "" -}}
+  {{- with .Params.featureimage -}}
+    {{- $res := resources.Get . -}}
+    {{- if $res -}}
+      {{- $imgZapis = ($res.Resize "400x webp q65").RelPermalink -}}
+    {{- else -}}
+      {{- $imgZapis = . | relURL -}}
+    {{- end -}}
+  {{- end -}}
+  <article class="ndm-article cat-{{ $t.slug }}">
+    {{ with .Params.featureimage }}
+      <div class="ndm-hero">{{ partial "ndm-image.html" (dict "src" . "szerokosc" 1400 "class" "ndm-hero__img" "alt" "" "loading" "eager") }}</div>
+    {{ end }}
+    <div class="ndm-article__grid">
+      <aside class="ndm-toc-wrap">
+        {{ if in .TableOfContents "<ul" }}
+          <div class="ndm-toc">
+            <div class="ndm-toc__label">Spis treści</div>
+            {{ .TableOfContents }}
+          </div>
+        {{ end }}
+      </aside>
+      <div class="ndm-article__body">
+        <span class="ndm-tag ndm-tag--inline"><span class="ndm-tag__dot"></span><span class="ndm-tag__label">{{ $t.nazwa }}</span></span>
+        <h1 class="ndm-article__title">{{ .Title }}</h1>
+        <div class="ndm-meta">
+          <div class="ndm-meta__author">
+            {{ partial "ndm-image.html" (dict "src" site.Params.authorImage "szerokosc" 38 "class" "ndm-avatar" "alt" $author.name) }}
+            <div class="ndm-meta__who">
+              <span class="ndm-meta__name">{{ $author.name }}</span>
+              <span class="ndm-meta__date">{{ .Date.Format "2 Jan 2006" }} · {{ .ReadingTime }} min</span>
+            </div>
+          </div>
+          <div class="ndm-meta__actions">
+            <button type="button" class="ndm-pill ndm-pill--btn" data-share data-title="{{ .Title }}" data-url="{{ .Permalink }}">Udostępnij</button>
+            <button type="button" class="ndm-pill ndm-pill--btn" data-save
+              data-key="{{ .RelPermalink }}"
+              data-title="{{ .Title }}"
+              data-cat="{{ $t.slug }}"
+              data-catlabel="{{ $t.nazwa }}"
+              data-date="{{ .Date.Format "2 Jan 2006" }}"
+              data-readtime="{{ .ReadingTime }}"
+              data-img="{{ $imgZapis }}"
+              data-excerpt="{{ .Summary | plainify | truncate 140 }}"
+              aria-pressed="false">Zapisz</button>
+          </div>
+        </div>
+        {{- /* Zdjęcia wstawione w kolejnych liniach (bez pustej linii między nimi) trafiają
+               do jednego <p> i mają stanąć obok siebie — tyle w rzędzie, ile ich wpisano.
+               Samo CSS tu nie wystarczy: parser przeglądarki zamyka <p> przed <figure>,
+               więc w DOM-ie te figury nie są już dziećmi akapitu. Dlatego podmieniamy
+               taki akapit na <div class="ndm-galeria--auto"> jeszcze w HTML-u, przed
+               wysłaniem strony. Pusta linia między zdjęciami = osobne akapity = pełna
+               szerokość, bez zmian. Jawny shortcode galeria działa niezależnie. */ -}}
+        {{- $tresc := .Content | replaceRE `(?s)<p>(\s*(?:<figure class="ndm-figure">.*?</figure>\s*){2,})</p>` `<div class="ndm-galeria ndm-galeria--auto">$1</div>` -}}
+        <div class="ndm-prose">
+          {{ $tresc | safeHTML }}
+        </div>
+        <div class="ndm-author-box">
+          {{ partial "ndm-image.html" (dict "src" site.Params.authorImage "szerokosc" 56 "class" "ndm-avatar ndm-avatar--lg" "alt" $author.name) }}
+          <div>
+            <div class="ndm-author-box__name">{{ $author.name }}</div>
+            <div class="ndm-author-box__bio">{{ with $author.bio }}{{ . | markdownify }}{{ end }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+{{ end }}

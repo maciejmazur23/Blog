@@ -1,0 +1,14 @@
+{{- $t := partial "ndm-topic.html" . -}}
+{{- $count := cond (eq .Kind "term") (len .Pages) (len (where site.RegularPages "Section" .Section)) -}}
+{{- /* Logo zamiast litery/strzałki: PNG idzie jako maska CSS (znak to czysta alpha),
+       więc kolor bierze się z tokenów sekcji — jeden plik obsługuje wszystkie tematy. */ -}}
+{{- $logo := (resources.Get "logo/nowe-logo.png").Resize "144x webp q90" -}}
+<div class="ndm-cat-header cat-{{ $t.slug }}">
+  <div class="ndm-cat-icon" style="--logo-maska:url('{{ $logo.RelPermalink }}')" role="img"
+       aria-label="{{ $t.nazwa }}"></div>
+  <div class="ndm-cat-head__text">
+    <div class="ndm-cat-head__eyebrow">Kategoria · {{ $count }} {{ partial "ndm-odmiana.html" (dict "n" $count "f1" "wpis" "f2" "wpisy" "f3" "wpisów") }}</div>
+    <h1 class="ndm-cat-head__title">{{ .Title }}</h1>
+    {{ with .Description | default .Summary }}<p class="ndm-cat-head__desc">{{ . | plainify }}</p>{{ end }}
+  </div>
+</div>

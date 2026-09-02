@@ -1,0 +1,9 @@
+{{- $p := . -}}
+{{ if gt $p.TotalPages 1 }}
+  <div class="ndm-pager">
+    {{ range $p.Pagers }}
+      <a href="{{ .URL }}" class="ndm-pager__item{{ if eq . $p }} is-active{{ end }}">{{ .PageNumber }}</a>
+    {{ end }}
+    {{ if $p.HasNext }}<a href="{{ $p.Next.URL }}" class="ndm-pager__item">→</a>{{ end }}
+  </div>
+{{ end }}

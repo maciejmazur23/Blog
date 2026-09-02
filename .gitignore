@@ -1,0 +1,14 @@
+# Artefakty buildu Hugo
+/public/
+/resources/
+.hugo_build.lock
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
+
+# Pliki narzędzi agentowych i notatki robocze — zostają lokalnie, poza historią repo
+.claude/
+.superpowers/
+/docs/

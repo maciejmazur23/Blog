@@ -1,0 +1,19 @@
+{{- /* Kilka zdjęć obok siebie w treści posta.
+
+       Zwykle NIE jest potrzebny: zdjęcia wpisane w kolejnych liniach (bez pustej linii
+       między nimi) same stają obok siebie — patrz reguła ndm-galeria--auto w single.html.
+       Ten shortcode przydaje się, gdy chcesz układ inny niż „wszystko w jednym rzędzie",
+       np. 4 zdjęcia w siatce 2×2.
+
+       Użycie: {{< galeria kolumny="2" >}}
+                 {{< foto src="images/a.jpg" podpis="..." >}}
+                 {{< foto src="images/b.jpg" podpis="..." >}}
+               {{< /galeria >}}
+       Parametry: kolumny (opcjonalny — domyślnie tyle kolumn, ile zdjęć w środku;
+                  poniżej 860px maks. 2, poniżej 640px zawsze 1)
+       Zdjęcia zachowują naturalne proporcje i są wyrównane do górnej krawędzi. */ -}}
+{{- $inner := .Inner -}}
+{{- $ile := len (findRE `<figure class="ndm-figure">` $inner) -}}
+{{- $kolumny := int (.Get "kolumny" | default (or $ile 2)) -}}
+{{- if lt $kolumny 1 }}{{ $kolumny = 1 }}{{ end -}}
+<div class="ndm-galeria" style="--cols:{{ $kolumny }}">{{ $inner }}</div>

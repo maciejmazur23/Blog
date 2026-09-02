@@ -1,0 +1,17 @@
+# Baza cytatów do sekcji „Cytat na dziś" na stronie głównej.
+# Każdy wpis: cytat (treść) + autor. Kolejność nieistotna — wybór idzie po dacie.
+- cytat: "Nie liczy się, jak wolno idziesz, dopóki się nie zatrzymujesz."
+  autor: "Konfucjusz"
+- cytat: "Sukces to suma małych wysiłków powtarzanych dzień w dzień."
+  autor: "Robert Collier"
+- cytat: "Ryzyko bierze się z niewiedzy o tym, co się robi."
+  autor: "Warren Buffett"
+- cytat: "Najlepszy moment, by zasadzić drzewo, był dwadzieścia lat temu. Drugi najlepszy jest teraz."
+  autor: "przysłowie chińskie"
+- cytat: "Nie wyszło Ci 30 razy, a wyszło za 31-wszym? To znaczy, że proces miał 31 kroków. Gratulacje! Udało się."
+  autor: Zen Jaskiniowca
+- cytat: "Motywacja pozwala zacząć, a nawyk pozwala wytrwać."
+  autor: "Jim Ryun"
+- cytat: "Każdy potrafi się nie poddawać"
+  autor: "Chadd Wright"
+

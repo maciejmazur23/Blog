@@ -1,0 +1,43 @@
+{{- /* Sekcja „Cytat na dziś" na stronie głównej.
+       Renderujemy tylko, gdy baza cytatów istnieje i jest niepusta.
+       Bazę osadzamy jako statyczny JS (jsonify|safeJS — pewny idiom bez pułapki
+       escapowania). Wybór cytatu i odkrycie sekcji robi skrypt poniżej. */ -}}
+{{- $q := hugo.Data.cytaty -}}
+{{- if and $q (gt (len $q) 0) -}}
+<section class="ndm-quote is-hidden" id="ndm-quote" aria-label="Cytat na dziś">
+  <span class="ndm-quote__q ndm-quote__q--l" aria-hidden="true">&ldquo;</span>
+  <span class="ndm-quote__label">Cytat na dziś</span>
+  <p class="ndm-quote__text"></p>
+  <div class="ndm-quote__meta"></div>
+  <span class="ndm-quote__q ndm-quote__q--r" aria-hidden="true">&rdquo;</span>
+</section>
+<script>window.__ndmQuotes = {{ $q | jsonify | safeJS }};</script>
+<script>
+(function(){
+  // Baza osadzona powyżej; guard na wypadek braku/pustej listy.
+  var data = window.__ndmQuotes;
+  if(!data || !data.length) return;
+  var el = document.getElementById('ndm-quote');
+  if(!el) return;
+
+  // Dzień roku z LOKALNEJ daty odwiedzającego (bez wpływu strefy w obrębie doby):
+  // ten sam dzień = ten sam cytat dla wszystkich, zmiana o północy lokalnej.
+  var now = new Date();
+  var start = Date.UTC(now.getFullYear(), 0, 0);
+  var today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  var dayOfYear = Math.floor((today - start) / 86400000);
+
+  var q = data[dayOfYear % data.length];
+  var textEl = el.querySelector('.ndm-quote__text');
+  var metaEl = el.querySelector('.ndm-quote__meta');
+
+  textEl.textContent = '„' + q.cytat + '”';
+  var autor = (q.autor || '').trim();
+  // Podpis „cytat na dziś” jest teraz stałą etykietą nad cytatem (w HTML);
+  // tu zostaje sam autor. Pusty autor => pusta linia (bez wiszącej kreski).
+  metaEl.textContent = autor ? ('— ' + autor) : '';
+
+  el.classList.remove('is-hidden'); // odkryj dopiero po wypełnieniu (brak pustej ramki gdy JS działa)
+})();
+</script>
+{{- end -}}

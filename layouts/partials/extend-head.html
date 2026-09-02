@@ -1,0 +1,20 @@
+{{- /* Jedna, stała skorupa marki na całym blogu. Kolor sekcji to wyłącznie akcent:
+       --sport/--health/--invest → --topic, ustawiany klasą cat-* na elementach
+       (kropki, etykiety, ikona kategorii, listwa karty). Bez podmiany całej palety
+       per sekcja — marka jest spójna wszędzie, a sekcję rozpoznajesz po akcencie.
+       Kolory tematów pochodzą z data/tematy.yaml. */ -}}
+{{- $light := dict "bg" "#F7F6F1" "surface" "#FFFFFF" "surface2" "#F0EFEA" "text" "#14130F" "muted" "#6B6A63" "border" "#E4E2DA" "brand" "#3B5BDB" "brandInk" "#FFFFFF" -}}
+{{- $dark  := dict "bg" "#100F0C" "surface" "#1A1916" "surface2" "#232220" "text" "#F4F3EE" "muted" "#9C9A90" "border" "#2C2B27" "brand" "#5C7CFA" "brandInk" "#0B0F16" -}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:{{ $light.bg }};--surface:{{ $light.surface }};--surface2:{{ $light.surface2 }};--text:{{ $light.text }};--muted:{{ $light.muted }};--border:{{ $light.border }};--brand:{{ $light.brand }};--brand-ink:{{ $light.brandInk }};
+  {{ range site.Data.tematy }}--{{ .zmiennaCSS }}:{{ .kolorLight }};{{ end }}
+}
+.dark{
+  --bg:{{ $dark.bg }};--surface:{{ $dark.surface }};--surface2:{{ $dark.surface2 }};--text:{{ $dark.text }};--muted:{{ $dark.muted }};--border:{{ $dark.border }};--brand:{{ $dark.brand }};--brand-ink:{{ $dark.brandInk }};
+  {{ range site.Data.tematy }}--{{ .zmiennaCSS }}:{{ .kolorDark }};{{ end }}
+}
+</style>

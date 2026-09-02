@@ -1,0 +1,22 @@
+{{ define "main" }}
+  {{- $pages := where site.RegularPages "Section" "in" site.Params.mainSections -}}
+  {{- $pages = $pages.ByDate.Reverse -}}
+  <div class="ndm-home">
+    {{ partial "ndm-quote.html" . }}
+
+    {{/* Główny wpis = najnowszy; siatka „Najnowsze” pokazuje kolejne 3 (bez dublowania). */}}
+    {{ with first 1 $pages }}
+      {{ range . }}{{ partial "ndm-featured.html" . }}{{ end }}
+    {{ end }}
+
+    <div class="ndm-section-head">
+      <h3 class="ndm-section-head__title">Najnowsze wpisy</h3>
+    </div>
+
+    <div class="ndm-grid">
+      {{ range first 3 (after 1 $pages) }}
+        {{ partial "post-card.html" . }}
+      {{ end }}
+    </div>
+  </div>
+{{ end }}

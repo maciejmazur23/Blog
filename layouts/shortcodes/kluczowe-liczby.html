@@ -1,0 +1,11 @@
+<div class="ndm-keyfigures">
+  {{ range (seq 1 3) }}
+    {{- $n := $.Get (printf "n%d" .) -}}{{- $p := $.Get (printf "p%d" .) -}}
+    {{ if $n }}
+      <div class="ndm-keyfigure">
+        <span class="ndm-keyfigure__num">{{ $n }}</span>
+        <span class="ndm-keyfigure__cap">{{ $p }}</span>
+      </div>
+    {{ end }}
+  {{ end }}
+</div>
