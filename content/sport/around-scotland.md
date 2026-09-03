@@ -41,7 +41,7 @@ Zaraz po dotarciu do Inverness wyruszyłem do serwisu rowerowego z nadzieją, ż
 
 ## Scotland is not for beginners
 
-Trasa nieźle dała nam w kość. Po części dlatego, że jest na niej dużo przewyższeń, ale także z powodu ciągłego dyskomfortu, jaki zapewniała nam szkocka pogoda i muszki midges. Dodając do tego lawinę usterek, nic dziwnego, że morale na trasie nie było zbyt wysokie.
+Trasa nieźle dała nam w kość. Po części dlatego, że jest na niej dużo przewyższeń, ale także z powodu ciągłego dyskomfortu, jaki zapewniała nam szkocka pogoda i muszki midges. Dodając do tego lawinę usterek, nic dziwnego, że morale na trasie nie były zbyt wysokie.
 
 ### Pogoda
 
