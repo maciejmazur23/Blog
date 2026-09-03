@@ -2,6 +2,7 @@
 title: "Procent składany - czyli ósmy cud świata"
 date: 2026-05-08
 summary: "Czym jest procent składany i dlaczego jest nazywany ósmym cudem świata?"
+description: "Procent składany: czym różni się od procentu prostego, jak działa jego wzór i dlaczego czas liczy się bardziej niż kwota."
 tags: ["inwestycje", "indeks", "podstawy"]
 categories: ["Inwestycje"]
 featureimage: "images/procent-skladany/wzrost.jpg"

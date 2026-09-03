@@ -2,6 +2,7 @@
 title: "Czego nauczyło mnie pierwsze ultra?"
 date: 2026-06-05
 summary: "Podsumowanie mojego pierwszego ultramaratonu jakim był Bieg Rzeźnika oraz czego się z niego nauczyłem."
+description: "Bieg Rzeźnika — mój pierwszy ultramaraton: 80 km i 4000 m przewyższeń w Bieszczadach. Przygotowania, przebieg zawodów i lekcje które wyniosłem."
 tags: ["bieganie", "bieszczady", "zawody", "ultramaraton"]
 categories: ["Sport"]
 featureimage: "images/bieg-rzeznika-2026/medal.jpg"

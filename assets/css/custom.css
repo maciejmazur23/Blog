@@ -351,6 +351,15 @@ h1,h2,h3,h4{font-family:var(--font-display)}
 .ndm-topic-card__name{font-weight:600;font-size:15px}
 .ndm-topic-card__desc{font-size:13px;color:var(--muted);line-height:1.5}
 .ndm-about__socials{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.ndm-about__contact{display:flex;flex-direction:column;gap:9px;margin-top:6px;
+  padding-top:22px;border-top:1px solid var(--border)}
+.ndm-about__contact-label{font-family:var(--font-mono);font-size:15px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--text)}
+.ndm-about__contact-lead{margin:0;font-size:14.5px;line-height:1.6;color:var(--muted)}
+.ndm-about__contact-mail{align-self:flex-start;font-family:var(--font-mono);font-size:16px;
+  color:var(--text);text-decoration:none;padding-bottom:3px;border-bottom:1px solid var(--border);
+  transition:color .15s ease,border-color .15s ease}
+.ndm-about__contact-mail:hover{color:var(--brand);border-color:var(--brand)}
 
 /* ---------- Cytat na dziś (strona główna, wyśrodkowany, cudzysłowy po bokach) ---------- */
 .ndm-quote{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;

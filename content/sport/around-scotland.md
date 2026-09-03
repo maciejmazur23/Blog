@@ -2,6 +2,7 @@
 title: "Czy ta droga jest przeklęta?! Moje wspomnienia z North Coast 500"
 date: 2026-08-02
 summary: "Moje wspomnienia ze szkockiej trasy North Coast 500 oraz praktyczne wskazówki dla osób, które chcą ją kiedyś zrobić."
+description: "North Coast 500 na rowerze: 830 km wokół północnej Szkocji. Relacja z trasy, logistyka lotu z rowerem, dzikie noclegi i wskazówki dla chętnych."
 tags: ["rower", "szkocja", "trasa", "bikepacking", "camping"]
 categories: ["Sport"]
 featureimage: "images/around-scotland/znak.jpg"

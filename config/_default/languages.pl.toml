@@ -9,11 +9,11 @@ title = "Na Dłuższą Metę"
   rtl = false
 
 [params.author]
-  name = "Maciek"
+  name = "Maciej Mazur"
   headline = "Zdrowie ciała i portfela"
   bio = "O sporcie, zdrowiu i inwestowaniu — czyli o budowaniu kapitału: tego w mięśniach i tego na koncie."
   links = [
-    { linkedin = "https://www.linkedin.com/in/maciek-mazur" },
+    { linkedin = "https://www.linkedin.com/in/maciej-mazur-90064b2b4" },
     { instagram = "https://www.instagram.com/bestia_z_sierakowa/" },
-    { email = "maciek.m2317@vp.pl" },
+    { email = "mailto:maciejmazur@nadluzszamete.pl" },
   ]

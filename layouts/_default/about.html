@@ -41,6 +41,13 @@
           <a href="{{ .url }}" class="ndm-pill"{{ if ne .url "#" }}{{ if not (hasPrefix .url "/") }} target="_blank" rel="me noopener"{{ end }}{{ end }}>{{ .name }}</a>
         {{ end }}
       </div>
+      {{ with site.Params.contactEmail }}
+        <div class="ndm-about__contact">
+          <span class="ndm-about__contact-label">Kontakt</span>
+          <p class="ndm-about__contact-lead">Masz jakieś pytania? Napisz - chętnie odpowiem.</p>
+          <a class="ndm-about__contact-mail" href="mailto:{{ . }}">{{ . }}</a>
+        </div>
+      {{ end }}
     </div>
   </div>
 {{ end }}
